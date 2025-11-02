@@ -50,11 +50,7 @@ func TestAEAD_Seal(t *testing.T) {
 			expectedCiphertext, _ := hex.DecodeString(tt.expectedCiphertext)
 			expectedTag, _ := hex.DecodeString(tt.expectedTag)
 
-			var sessionKey [32]byte
-			copy(sessionKey[:], key)
-			aead := &AEAD{sessionKey: sessionKey}
-
-			chipertext, tag := aead.Seal(nonce, tt.plaintext, aad)
+			chipertext, tag := Seal([32]byte(key), [12]byte(nonce), tt.plaintext, aad)
 
 			if !bytes.Equal(chipertext, expectedCiphertext) {
 				t.Errorf("ciphertext mismatch\ngot:  %x\nwant: %x", chipertext, expectedCiphertext)
@@ -144,11 +140,7 @@ func TestAEAD_Open(t *testing.T) {
 			tag, _ := hex.DecodeString(tt.tag)
 			aad, _ := hex.DecodeString(tt.aad)
 
-			var sessionKey [32]byte
-			copy(sessionKey[:], key)
-			aead := &AEAD{sessionKey: sessionKey}
-
-			plaintext, err := aead.Open(nonce, ciphertext, tag, aad)
+			plaintext, err := Open([32]byte(key), [12]byte(nonce), ciphertext, tag, aad)
 
 			if tt.expectedError {
 				if err == nil {

@@ -1,3 +1,6 @@
+// ChaCha20-Poly1305 implementation for learning purposes. Do not use in production.
+// This package does not implement cipher.AEAD interface
+// to keep inputs/outputs explicit for learning purposes.
 package chacha20_poly1305
 
 import (
@@ -10,23 +13,13 @@ import (
 	poly1305 "github.com/convto/Poly1305"
 )
 
-// AEAD does not implement cipher.AEAD interface
-// to keep inputs/outputs explicit for learning purposes.
-type AEAD struct {
-	sessionKey [32]byte
-}
-
-func (c *AEAD) Seal(nonce, plaintext, additionalData []byte) (chipertext []byte, tag []byte) {
-	if len(nonce) != 12 {
-		panic("chacha20poly1305: bad nonce length passed to Seal")
-	}
-
+func Seal(sessionKey [32]byte, nonce [12]byte, plaintext, additionalData []byte) (chipertext []byte, tag []byte) {
 	if uint64(len(plaintext)) > (1<<38)-64 {
 		panic("chacha20poly1305: plaintext too large")
 	}
 
 	// Generate the Poly1305 key
-	stream := chacha20.NewCipher(c.sessionKey, 0, [12]byte(nonce))
+	stream := chacha20.NewCipher(sessionKey, 0, nonce)
 	var polyKey [32]byte
 	stream.XORKeyStream(polyKey[:], polyKey[:])
 
@@ -48,9 +41,9 @@ func (c *AEAD) Seal(nonce, plaintext, additionalData []byte) (chipertext []byte,
 	return ciphertext, mac.Sum(buf.Bytes())
 }
 
-func (c *AEAD) Open(nonce, ciphertext, tag, additionalData []byte) ([]byte, error) {
+func Open(sessionKey [32]byte, nonce [12]byte, ciphertext, tag, additionalData []byte) ([]byte, error) {
 	// Generate the Poly1305 key
-	stream := chacha20.NewCipher(c.sessionKey, 0, [12]byte(nonce))
+	stream := chacha20.NewCipher(sessionKey, 0, nonce)
 	var polyKey [32]byte
 	stream.XORKeyStream(polyKey[:], polyKey[:])
 
