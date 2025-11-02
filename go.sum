@@ -1,0 +1,8 @@
+github.com/convto/ChaCha20 v0.0.0-20240229025923-0285c489eb59 h1:R/pTxyptbKZXFvE3h6djDVEDmWWJLxGAjrLheLZaba8=
+github.com/convto/ChaCha20 v0.0.0-20240229025923-0285c489eb59/go.mod h1:djvLY02KD+AHez86I/sd1qTYnAyKdD1MsT76KAK9+EU=
+github.com/convto/ChaCha20 v0.0.0-20251102142217-066ee2743926 h1:UxhJFU4nd3ir4pYJcDM02U4/tHQaZRM/PMAhCCbF1+k=
+github.com/convto/ChaCha20 v0.0.0-20251102142217-066ee2743926/go.mod h1:djvLY02KD+AHez86I/sd1qTYnAyKdD1MsT76KAK9+EU=
+github.com/convto/ChaCha20 v0.0.0-20251102144808-c13c1f4ffdb7 h1:nPOqAt8/vJcM0xVzL5tmLadUDUYe1c7XuwuGaAB9+8U=
+github.com/convto/ChaCha20 v0.0.0-20251102144808-c13c1f4ffdb7/go.mod h1:djvLY02KD+AHez86I/sd1qTYnAyKdD1MsT76KAK9+EU=
+github.com/convto/Poly1305 v0.0.0-20251031152514-e1b34368e817 h1:52BUZwzR8crjw5bhI94apyKdRmHXgVSzzhxMsIhiPOY=
+github.com/convto/Poly1305 v0.0.0-20251031152514-e1b34368e817/go.mod h1:09sdBIi0TFC0WixeDLgT+l97IQ8cdwsH1POPBgzEGFA=
