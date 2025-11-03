@@ -13,7 +13,7 @@ import (
 	poly1305 "github.com/convto/Poly1305"
 )
 
-func Seal(sessionKey [32]byte, nonce [12]byte, plaintext, additionalData []byte) (chipertext []byte, tag []byte) {
+func Seal(sessionKey [32]byte, nonce [12]byte, plaintext, additionalData []byte) (ciphertext []byte, tag []byte) {
 	if uint64(len(plaintext)) > (1<<38)-64 {
 		panic("chacha20poly1305: plaintext too large")
 	}
@@ -25,7 +25,7 @@ func Seal(sessionKey [32]byte, nonce [12]byte, plaintext, additionalData []byte)
 
 	// Encrypt the plaintext
 	stream.SetCounter(1)
-	ciphertext := make([]byte, len(plaintext))
+	ciphertext = make([]byte, len(plaintext))
 	stream.XORKeyStream(ciphertext, plaintext)
 
 	// Generate the Poly1305 authentication tag
